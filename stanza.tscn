@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgmsr2cgqje5h"]
+
+[ext_resource type="Script" path="res://stanza.gd" id="1_vcyhk"]
+[ext_resource type="PackedScene" uid="uid://bcii1w1shl08y" path="res://XR_Player.tscn" id="4_ln37w"]
+[ext_resource type="PackedScene" uid="uid://bapimtpc2ea5i" path="res://levels/level_00.tscn" id="5_pewhl"]
+[ext_resource type="PackedScene" uid="uid://drfefyapw17xl" path="res://target.tscn" id="6_ouqr2"]
+[ext_resource type="PackedScene" uid="uid://boq1aimom4fjb" path="res://pickable_object.tscn" id="9_rfuev"]
+[ext_resource type="PackedScene" uid="uid://5fcdoa7cepv6" path="res://laser_gun.tscn" id="10_36d6c"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_vcyhk")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("4_ln37w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.33346, 2.43322, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.945516, 0.325572, 0.00113905, -0.00389377, 0.0078097, 0.999962, 0.325551, -0.945485, 0.0086519, 0, 8.2237, 0)
+
+[node name="PickableObject" parent="." instance=ExtResource("9_rfuev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76847, 0.873168, 3.52456)
+
+[node name="LaserGun" parent="." instance=ExtResource("10_36d6c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.891581, 1.17146, -0.021915)
+ranged_grab_speed = 40.0
+
+[node name="Level_00" parent="." instance=ExtResource("5_pewhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49355, 0.25, 3.03375)
+script = null
+
+[node name="XROrigin3D" parent="Level_00" index="0"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
+
+[node name="target" parent="." instance=ExtResource("6_ouqr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.09004, 2.07169, -3.2451)
+
+[node name="target2" parent="." instance=ExtResource("6_ouqr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11419, 3.15332, -0.161789)
+
+[node name="target3" parent="." instance=ExtResource("6_ouqr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.78976, 2.03619, 2.90645)
+
+[editable path="Level_00"]

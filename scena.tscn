@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://b04etiyho86vq"]
+
+[ext_resource type="PackedScene" uid="uid://bcii1w1shl08y" path="res://XR_Player.tscn" id="1_3x0gd"]
+[ext_resource type="PackedScene" uid="uid://cgmsr2cgqje5h" path="res://stanza.tscn" id="1_fmb2u"]
+
+[sub_resource type="GDScript" id="GDScript_1ov3s"]
+script/source = "extends Node3D
+
+var xr_interface: XRInterface
+
+func _ready():
+	xr_interface = XRServer.find_interface(\"OpenXR\")
+	if xr_interface and xr_interface.is_initialized():
+		print(\"OpenXR initialized successfully\")
+
+		# Turn off v-sync!
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+		# Change our main viewport to output to the HMD
+		get_viewport().use_xr = true
+	else:
+		print(\"OpenXR not initialized, please check if your headset is connected\")
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vuilv"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3xehb"]
+
+[node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_1ov3s")
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_3x0gd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.6465, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vuilv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_3xehb")
+skeleton = NodePath("../..")
+
+[node name="Node3D" parent="." instance=ExtResource("1_fmb2u")]
+transform = Transform3D(10, 0, 0, 0, 35.65, 0, 0, 0, 10, 0, 0, 0)
+
+[editable path="XROrigin3D"]

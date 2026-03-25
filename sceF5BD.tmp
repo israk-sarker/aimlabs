@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://b57xn6ad671p5"]
+
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="1_88ct4"]
+[ext_resource type="PackedScene" uid="uid://cgmsr2cgqje5h" path="res://stanza.tscn" id="1_fmb2u"]
+[ext_resource type="Script" path="res://scena.gd" id="1_m8qsx"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_p50o8"]
+[ext_resource type="PackedScene" uid="uid://cvokcudrffkgc" path="res://addons/godot-xr-tools/functions/movement_glide.tscn" id="5_4kgwj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t8m3p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fcwv3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i0svs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vuilv"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3xehb"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0372658, -0.139709, 0.365797)
+script = ExtResource("1_m8qsx")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21595, 0)
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_t8m3p")
+
+[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("1_88ct4")]
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fcwv3")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="XROrigin3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RigidBody3D"]
+shape = SubResource("CapsuleShape3D_i0svs")
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("2_p50o8")]
+
+[node name="MovementGlide" parent="XROrigin3D" instance=ExtResource("5_4kgwj")]
+wings_impulse = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vuilv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_3xehb")
+skeleton = NodePath("../..")
+
+[node name="Node3D" parent="." instance=ExtResource("1_fmb2u")]
+transform = Transform3D(10, 0, 0, 0, 35.65, 0, 0, 0, 10, 0, -26.669, 0)

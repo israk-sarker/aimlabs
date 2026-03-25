@@ -1,0 +1,55 @@
+[gd_scene load_steps=16 format=3 uid="uid://5fcdoa7cepv6"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_kypbr"]
+[ext_resource type="PackedScene" uid="uid://clisqt4bx3b3b" path="res://light_gun02.glb" id="2_7686t"]
+[ext_resource type="Script" path="res://laser_gun_script.gd" id="2_dvspq"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_r37dt"]
+[ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="4_6ds8x"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_omemf"]
+[ext_resource type="Animation" uid="uid://ddbo6ioa282en" path="res://addons/godot-xr-tools/hands/animations/left/Pistol.res" id="5_w3tna"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_vy0k2"]
+[ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="8_tgrfq"]
+[ext_resource type="Animation" uid="uid://csp3fdknowmi5" path="res://addons/godot-xr-tools/hands/animations/right/Pistol.res" id="9_g6kq2"]
+[ext_resource type="Script" path="res://ray_cast_3d.gd" id="11_dq64c"]
+[ext_resource type="AudioStream" uid="uid://mq5blu0dck1l" path="res://laserShoot.wav" id="12_jgdhq"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ma13l"]
+points = PackedVector3Array(0.108192, 0.0825338, 0.00948, 0.108192, 0.0804814, 0.0144511, 0.118086, -0.0774755, 0.00980645, 0.108192, 0.0825338, -0.00948323, -0.106338, 0.0825338, 0.00948, 0.108192, 0.07552, 0.0165068, -0.106338, 0.0804814, 0.0144511, 0.118086, -0.0774755, -0.00980968, 0.116418, -0.0773785, 0.0135267, 0.11658, -0.0803683, 0.0128415, 0.11753, -0.0811117, 0.00980645, 0.108192, 0.0804814, -0.0144543, -0.106338, 0.0825338, -0.00948323, -0.107659, 0.0819844, 0.00941212, 0.108192, 0.039061, 0.0165068, 0.112594, -0.0772977, 0.0150652, -0.106338, 0.07552, 0.0165068, -0.107659, 0.0800451, 0.0140956, 0.11753, -0.0811117, -0.00980968, 0.11658, -0.0803683, -0.0128447, 0.116418, -0.0773785, -0.0135299, 0.108192, 0.07552, -0.01651, 0.11366, -0.0809824, 0.0135267, 0.11417, -0.08255, 0.00980645, -0.106338, 0.0804814, -0.0144543, -0.107659, 0.0819844, -0.00941535, -0.118618, 0.0761988, 0.00303826, 0.097395, 0.0330168, 0.0165068, 0.070935, -0.0772977, 0.0150652, -0.107659, 0.0756493, 0.0159153, -0.106338, 0.0331945, 0.0165068, -0.118618, 0.0717707, 0.00745342, 0.11417, -0.08255, -0.00980968, 0.11366, -0.0809824, -0.0135299, 0.112594, -0.0772977, -0.0150684, 0.108192, 0.039061, -0.01651, -0.106338, 0.07552, -0.01651, 0.0719313, -0.0809662, 0.0135267, 0.072302, -0.08255, 0.00980645, -0.107659, 0.0800451, -0.0140988, -0.118618, 0.0761826, -0.00315461, -0.106338, 0.0237242, 0.0150652, -0.118618, 0.0654841, 0.0075019, -0.107659, 0.0332269, 0.0159153, -0.107659, 0.0242737, 0.0145642, 0.072302, -0.08255, -0.00980968, 0.0719313, -0.0809662, -0.0135299, 0.070935, -0.0772977, -0.0150684, 0.097395, 0.0330168, -0.01651, -0.106338, 0.0331945, -0.01651, -0.107659, 0.0756493, -0.0159185, 0.0686411, -0.0803844, 0.0128415, 0.0681082, -0.081144, 0.00980645, -0.118618, 0.0717222, -0.00750513, -0.118618, 0.0610237, 0.00315138, -0.108215, 0.0255989, 0.0133554, -0.107659, 0.0242737, -0.0145675, 0.0686411, -0.0803844, -0.0128447, 0.0681082, -0.081144, -0.00980968, -0.106338, 0.0237242, -0.0150684, -0.107659, 0.0332269, -0.0159185, -0.118618, 0.0654356, -0.00745665, -0.118618, 0.0610075, -0.00304148, -0.108215, 0.0255989, -0.0133586)
+
+[sub_resource type="Resource" id="Resource_quqry"]
+script = ExtResource("6_vy0k2")
+open_pose = ExtResource("5_w3tna")
+closed_pose = ExtResource("4_6ds8x")
+
+[sub_resource type="Resource" id="Resource_nleqy"]
+script = ExtResource("6_vy0k2")
+open_pose = ExtResource("9_g6kq2")
+closed_pose = ExtResource("8_tgrfq")
+
+[node name="LaserGun" instance=ExtResource("1_kypbr")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_ma13l")
+
+[node name="LaserGun_Script" type="Node" parent="." index="2"]
+script = ExtResource("2_dvspq")
+
+[node name="light_gun02" parent="." index="3" instance=ExtResource("2_7686t")]
+
+[node name="GrabPointHandLeft" parent="." index="4" instance=ExtResource("4_omemf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0350961, 0.0240688, 0.00504287)
+hand_pose = SubResource("Resource_quqry")
+
+[node name="GrabPointHandRight" parent="." index="5" instance=ExtResource("3_r37dt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0350961, 0.0240688, 0.00504287)
+hand_pose = SubResource("Resource_nleqy")
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.118691, 0.069423, 0)
+target_position = Vector3(-10, 0, 0)
+script = ExtResource("11_dq64c")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="7"]
+stream = ExtResource("12_jgdhq")
+
+[editable path="light_gun02"]
